@@ -87,7 +87,7 @@ public class RebeldeService {
 
     public Rebelde addItem(final String idRebelde, final ItemDeInventarioDTO itemDeInventarioDTO) {
         Rebelde rebelde = buscarPorId(idRebelde);
-        Item novoItem = itemService.obterPorId(itemDeInventarioDTO.getItemId());
+        Item novoItem = itemService.obterPorId(itemDeInventarioDTO.getItem().getId());
 
         ItemDeInventario itemDeInventario = new ItemDeInventario();
         itemDeInventario.setItem(novoItem);
@@ -169,7 +169,12 @@ public class RebeldeService {
 
     private void validarInventario(final Inventario inventario) {
         inventario.getItensDeInventario()
-                .stream().forEach(itemDeInventario -> itemService.obterPorId(itemDeInventario.getItem().getId()));
+                .stream().forEach(itemDeInventario -> {
+                    if (itemDeInventario.getQuantidade() < 1) {
+                        throw new QuantidadeInsuficienteException("Quantidade de itens invalida: " + itemDeInventario.getQuantidade());
+                    }
+                    itemService.obterPorId(itemDeInventario.getItem().getId());
+        });
     }
 
     private Rebelde salvarOuAtualizarRebelde(final Rebelde rebelde) {

@@ -7,5 +7,5 @@ import java.util.List;
 
 @Data
 public class InventarioDTO {
-    private List<ItemDeInventario> itensDeInventario;
+    private List<ItemDeInventarioDTO> itensDeInventario;
 }

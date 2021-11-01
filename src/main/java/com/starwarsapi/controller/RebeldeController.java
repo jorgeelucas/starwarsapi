@@ -11,6 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,8 +38,6 @@ public class RebeldeController {
     @PostMapping
     @ApiOperation(value = "Cadastrar novo rebelde")
     public ResponseEntity<Rebelde> adicionar(@RequestBody @Valid RebeldeDTO rebeldeDto) {
-//        if (rebeldeDto.getNome() == null)
-//            throw new ObjetoNaoEncontradoException("erro");
         Rebelde novoRebelde = rebeldeService.adicionarRebelde(rebeldeDto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(novoRebelde.getId()).toUri();
         return ResponseEntity.created(uri).body(novoRebelde);

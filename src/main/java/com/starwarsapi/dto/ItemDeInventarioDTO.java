@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class ItemDeInventarioDTO {
-    private String itemId;
+    private ItemDTO item;
+
     private Integer quantidade;
 }

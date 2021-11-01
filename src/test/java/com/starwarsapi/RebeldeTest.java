@@ -1,6 +1,8 @@
 package com.starwarsapi;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.starwarsapi.converter.Converter;
+import com.starwarsapi.dto.ItemDTO;
 import com.starwarsapi.dto.ItemDeInventarioDTO;
 import com.starwarsapi.dto.NegociacaoItemDTO;
 import com.starwarsapi.dto.RebeldeNegocianteDTO;
@@ -168,7 +170,7 @@ public class RebeldeTest {
         String rebeldeId = "luke";
 
         ItemDeInventarioDTO dto = new ItemDeInventarioDTO();
-        dto.setItemId("item-agua");
+        dto.setItem(Converter.convert(itemAgua, ItemDTO.class));
         dto.setQuantidade(2);
 
         mockMvc.perform(post("/api/v1/rebeldes/{rebeldeid}", rebeldeId)
@@ -181,9 +183,11 @@ public class RebeldeTest {
     @Test
     void testaAdicionarItemInexistenteAoRebelde() throws Exception {
         String rebeldeId = "luke";
+        ItemDTO itemInexistente = new ItemDTO();
+        itemInexistente.setId("item-inexistente");
 
         ItemDeInventarioDTO dto = new ItemDeInventarioDTO();
-        dto.setItemId("item-inexistente");
+        dto.setItem(itemInexistente);
         dto.setQuantidade(2);
 
         mockMvc.perform(post("/api/v1/rebeldes/" + rebeldeId)
