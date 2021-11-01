@@ -49,12 +49,6 @@ public class RebeldeController {
         return ResponseEntity.ok(rebeldeService.buscarTodos());
     }
 
-    @PostMapping("/{idRebelde}")
-    @ApiOperation(value = "Adicionar o item ao rebelde")
-    public ResponseEntity<Rebelde> adicionarItem(@PathVariable String idRebelde, @RequestBody ItemDeInventarioDTO itemDeInventarioDto) {
-        return ResponseEntity.ok(rebeldeService.addItem(idRebelde, itemDeInventarioDto));
-    }
-
     @PutMapping("localizacao/{idRebelde}")
     @ApiOperation(value = "Atualizar a localização de um determinado rebelde")
     public ResponseEntity<Rebelde> atualizarLocalizacaoRebelde(@PathVariable String idRebelde,
